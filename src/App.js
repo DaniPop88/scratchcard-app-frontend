@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API = "https://<RAILWAY_BACKEND_URL>/api"; // GANTI dengan domain backend Railway lo!
+const API = "https://scratchcard-app-backend-production.up.railway.app/api"; // GANTI dengan domain backend Railway lo!
 
 function App() {
   const [username, setUsername] = useState("");
