@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <title>Pop Rede</title>
@@ -27,7 +27,6 @@
       min-height: 100vh;
       box-sizing: border-box;
     }
-    /* Navbar */
     nav {
       height: var(--nav-height);
       background: var(--card);
@@ -123,7 +122,6 @@
       font-size: 1.3rem;
       cursor: pointer;
     }
-    /* Banner */
     .banner {
       width: 100%;
       background: linear-gradient(90deg, #38e54d 60%, #252525 100%);
@@ -189,7 +187,6 @@
       margin-left: 24px;
       margin-top: 16px;
     }
-    /* VIVO Row */
     .vivo-row {
       width: 100%;
       margin: 0 auto 14px auto;
@@ -259,7 +256,6 @@
       margin-left: auto;
       font-size: 1.07rem;
     }
-    /* Search Bar */
     .search-bar-row {
       width: 100%;
       max-width: 1200px;
@@ -285,7 +281,6 @@
     .search-bar:focus {
       border: 2px solid var(--green);
     }
-    /* Highlights Section */
     .main-content {
       max-width: 1200px;
       margin: 0 auto;
@@ -417,7 +412,6 @@
     .game-awards:hover {
       color: var(--green-light);
     }
-    /* Footer */
     footer {
       background: var(--card);
       padding: 34px 0 20px 0;
@@ -477,11 +471,9 @@
       vertical-align: middle;
       margin-right: 8px;
     }
-    /* Bottom Navigation Mobile */
     .bottom-nav {
       display: none;
     }
-    /* Responsive Styles */
     @media (max-width: 900px) {
       .banner-content { flex-direction: column; gap: 22px;}
       .banner-img { min-width: 220px; max-width: 220px; height: 120px;}
@@ -545,59 +537,85 @@
         display: flex;
         position: fixed;
         left: 0; right: 0; bottom: 0;
-        height: 58px;
+        height: 62px;
         background: var(--card);
         justify-content: space-around;
         align-items: center;
         z-index: 999;
         border-top: 2px solid var(--green);
+        box-shadow: 0 -2px 12px #0007;
       }
       .bottom-nav-btn {
         flex: 1;
         text-align: center;
         color: #fff;
         font-size: 1.11rem;
-        padding: 0;
         border: none;
         background: none;
         cursor: pointer;
         position: relative;
-      }
-      .bottom-nav-btn.active {
-        color: var(--green);
+        padding: 0;
+        outline: none;
+        transition: color var(--transition);
       }
       .bottom-nav-btn .icon {
         display: block;
         font-size: 1.43rem;
         margin: 0 auto 2px auto;
       }
-      body { padding-bottom: 62px;}
+      .bottom-nav-btn.active {
+        color: var(--green);
+      }
+      .bottom-nav-btn.register-btn {
+        position: relative;
+        top: -13px;
+        background: var(--green);
+        color: #fff;
+        border-radius: 50%;
+        padding: 12px;
+        box-shadow: 0 2px 12px #38e54d88;
+        font-size: 1.21rem;
+        z-index: 2;
+        margin: 0 2px;
+        transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+      }
+      .bottom-nav-btn.register-btn.active,
+      .bottom-nav-btn.register-btn:hover {
+        background: #00FF57;
+        color: #23272a;
+        box-shadow: 0 4px 24px #38e54d88;
+      }
+      .bottom-nav-btn span.label {
+        display: block;
+        font-size: 0.95rem;
+        margin-top: 2px;
+        font-weight: 600;
+      }
+      body { padding-bottom: 78px;}
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <nav>
     <div class="nav-logo">
       <img src="https://i.imgur.com/ZM3QyJk.png" alt="Logo" />
       <span>POP REDE</span>
     </div>
     <div class="nav-links">
-      <a href="#">Start</a>
-      <a href="#">Scratch cards</a>
-      <a href="#">Refer and Earn</a>
+      <a href="#">Início</a>
+      <a href="#">Raspadinhas</a>
+      <a href="#">Indique e Ganhe</a>
     </div>
     <div class="nav-actions">
       <div class="nav-balance">
-        R$ 100.00
+        R$ 100,00
       </div>
-      <button class="nav-btn">Deposit</button>
-      <button class="nav-btn">Withdraw</button>
+      <button class="nav-btn">Depositar</button>
+      <button class="nav-btn">Sacar</button>
       <div class="nav-avatar">PR</div>
     </div>
   </nav>
 
-  <!-- Banner -->
   <section class="banner">
     <div class="banner-content">
       <div class="banner-img">
@@ -608,139 +626,150 @@
           ACHE 3 IGUAIS E <span style="color:#38e54d;">GANHE NA HORA!</span>
         </div>
         <div class="banner-desc">
-          Discover how thousands are earning with just a few clicks.
+          Descubra como milhares estão lucrando com poucos cliques.
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VIVO row -->
   <div class="vivo-row">
     <div class="vivo-indicator"><span class="vivo-dot"></span> AO VIVO</div>
     <div class="vivo-card">
       <span class="vivo-prize-name">Cynthia Ma******</span>
       <span class="vivo-prize-item">65-inch 4K Smart TV</span>
-      <span class="vivo-prize-value">R$ 3,000.00</span>
+      <span class="vivo-prize-value">R$ 3.000,00</span>
     </div>
     <div class="vivo-card">
       <span class="vivo-prize-name">Ania Co*****</span>
       <span class="vivo-prize-item">Datejust 41</span>
-      <span class="vivo-prize-value">R$ 75,400.00</span>
+      <span class="vivo-prize-value">R$ 75.400,00</span>
     </div>
     <div class="vivo-card">
       <span class="vivo-prize-name">Kleber Ri**</span>
       <span class="vivo-prize-item">DualSense Midnight</span>
-      <span class="vivo-prize-value">R$ 470.00</span>
+      <span class="vivo-prize-value">R$ 470,00</span>
     </div>
     <div class="vivo-card">
       <span class="vivo-prize-name">Raphael Bu****</span>
       <span class="vivo-prize-item">Submariner</span>
-      <span class="vivo-prize-value">R$ 84,800.00</span>
+      <span class="vivo-prize-value">R$ 84.800,00</span>
     </div>
     <div class="vivo-card">
       <span class="vivo-prize-name">Marcelo Di**</span>
       <span class="vivo-prize-item">Dishwasher</span>
-      <span class="vivo-prize-value">R$ 4,000.00</span>
+      <span class="vivo-prize-value">R$ 4.000,00</span>
     </div>
     <div class="vivo-card">
       <span class="vivo-prize-name">Allan Sa*****</span>
       <span class="vivo-prize-item">20 Reais</span>
-      <span class="vivo-prize-value">R$ 20.00</span>
+      <span class="vivo-prize-value">R$ 20,00</span>
     </div>
   </div>
 
-  <!-- Search Bar -->
   <div class="search-bar-row">
-    <input class="search-bar" type="text" placeholder="Search..." />
+    <input class="search-bar" type="text" placeholder="Pesquisar..." />
   </div>
 
-  <!-- Highlights Section -->
   <div class="main-content">
     <div class="section-title">
-      <span class="fire">🔥</span>Highlights
-      <span class="see-more">See more</span>
+      <span class="fire">🔥</span>Destaques
+      <span class="see-more">Ver mais</span>
     </div>
     <div class="cards-row">
       <div class="game-card">
         <img class="game-img-banner" src="https://i.imgur.com/3qQ6eQ2.png" alt="Lucky Penny" />
         <div class="game-title">Lucky Penny</div>
-        <div class="game-prize">PRIZES OF UP TO R$1,000.00</div>
+        <div class="game-prize">PRÊMIOS DE ATÉ R$1.000,00</div>
         <div class="game-action-row">
-          <button class="game-btn">To play</button>
-          <span class="game-price">R$ 0.50</span>
-          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+          <button class="game-btn">Jogar</button>
+          <span class="game-price">R$ 0,50</span>
+          <button class="game-awards"><span>🎁</span>VER PRÊMIOS</button>
         </div>
       </div>
       <div class="game-card">
         <img class="game-img-banner" src="https://i.imgur.com/0g2RRea.png" alt="Instant Luck" />
-        <div class="game-title">Instant Luck</div>
-        <div class="game-prize">PRIZES OF UP TO R$2,500.00</div>
+        <div class="game-title">Sorte Instantânea</div>
+        <div class="game-prize">PRÊMIOS DE ATÉ R$2.500,00</div>
         <div class="game-action-row">
-          <button class="game-btn">To play</button>
-          <span class="game-price">R$ 1.00</span>
-          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+          <button class="game-btn">Jogar</button>
+          <span class="game-price">R$ 1,00</span>
+          <button class="game-awards"><span>🎁</span>VER PRÊMIOS</button>
         </div>
       </div>
       <div class="game-card">
         <img class="game-img-banner" src="https://i.imgur.com/8hKX7vB.png" alt="Supreme Scratch Card" />
-        <div class="game-title">Supreme Scratch Card</div>
-        <div class="game-prize">PRIZES OF UP TO R$5,000.00</div>
+        <div class="game-title">Raspadinha Suprema</div>
+        <div class="game-prize">PRÊMIOS DE ATÉ R$5.000,00</div>
         <div class="game-action-row">
-          <button class="game-btn">To play</button>
-          <span class="game-price">R$ 2.50</span>
-          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+          <button class="game-btn">Jogar</button>
+          <span class="game-price">R$ 2,50</span>
+          <button class="game-awards"><span>🎁</span>VER PRÊMIOS</button>
         </div>
       </div>
       <div class="game-card">
         <img class="game-img-banner" src="https://i.imgur.com/oYQw9AE.png" alt="Lightning Shave" />
-        <div class="game-title">Lightning Shave</div>
-        <div class="game-prize">PRIZES OF UP TO R$15,000.00</div>
+        <div class="game-title">Raspa Relâmpago</div>
+        <div class="game-prize">PRÊMIOS DE ATÉ R$15.000,00</div>
         <div class="game-action-row">
-          <button class="game-btn">To play</button>
-          <span class="game-price">R$ 5.00</span>
-          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+          <button class="game-btn">Jogar</button>
+          <span class="game-price">R$ 5,00</span>
+          <button class="game-awards"><span>🎁</span>VER PRÊMIOS</button>
         </div>
       </div>
       <div class="game-card">
         <img class="game-img-banner" src="https://i.imgur.com/hoJ9wGx.png" alt="Magic Scratch Card" />
-        <div class="game-title">Magic Scratch Card</div>
-        <div class="game-prize">PRIZES OF UP TO R$30,000.00</div>
+        <div class="game-title">Raspadinha Mágica</div>
+        <div class="game-prize">PRÊMIOS DE ATÉ R$30.000,00</div>
         <div class="game-action-row">
-          <button class="game-btn">To play</button>
-          <span class="game-price">R$ 50.00</span>
-          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+          <button class="game-btn">Jogar</button>
+          <span class="game-price">R$ 50,00</span>
+          <button class="game-awards"><span>🎁</span>VER PRÊMIOS</button>
         </div>
       </div>
       <div class="game-card">
         <img class="game-img-banner" src="https://i.imgur.com/1FQdAPn.png" alt="Scratch and Win" />
-        <div class="game-title">Scratch and Win</div>
-        <div class="game-prize">PRIZES OF UP TO R$60,000.00</div>
+        <div class="game-title">Raspe e Ganhe</div>
+        <div class="game-prize">PRÊMIOS DE ATÉ R$60.000,00</div>
         <div class="game-action-row">
-          <button class="game-btn">To play</button>
-          <span class="game-price">R$ 100.00</span>
-          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+          <button class="game-btn">Jogar</button>
+          <span class="game-price">R$ 100,00</span>
+          <button class="game-awards"><span>🎁</span>VER PRÊMIOS</button>
         </div>
       </div>
       <div class="game-card">
         <img class="game-img-banner" src="https://i.imgur.com/qw7KURY.png" alt="Omega Scratch Card" />
-        <div class="game-title">Omega Scratch Card</div>
-        <div class="game-prize">PRIZES OF UP TO R$175,000.00</div>
+        <div class="game-title">Raspadinha Ômega</div>
+        <div class="game-prize">PRÊMIOS DE ATÉ R$175.000,00</div>
         <div class="game-action-row">
-          <button class="game-btn">To play</button>
-          <span class="game-price">R$ 500.00</span>
-          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+          <button class="game-btn">Jogar</button>
+          <span class="game-price">R$ 500,00</span>
+          <button class="game-awards"><span>🎁</span>VER PRÊMIOS</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bottom Navigation Mobile -->
   <div class="bottom-nav">
-    <button class="bottom-nav-btn active"><span class="icon">🏠</span>Home</button>
-    <button class="bottom-nav-btn"><span class="icon">🎫</span>Scratch</button>
-    <button class="bottom-nav-btn"><span class="icon">🟢</span>Register</button>
-    <button class="bottom-nav-btn"><span class="icon">🎁</span>Awards</button>
-    <button class="bottom-nav-btn"><span class="icon">👤</span>Login</button>
+    <button class="bottom-nav-btn active">
+      <span class="icon">🏠</span>
+      <span class="label" style="color:#38e54d;">Início</span>
+    </button>
+    <button class="bottom-nav-btn">
+      <span class="icon">🎫</span>
+      <span class="label">Raspadinhas</span>
+    </button>
+    <button class="bottom-nav-btn register-btn active">
+      <span class="icon">👤<span style="font-size:0.9em;vertical-align:super;">+</span></span>
+      <span class="label">Registrar</span>
+    </button>
+    <button class="bottom-nav-btn">
+      <span class="icon">🎁</span>
+      <span class="label">Prêmios</span>
+    </button>
+    <button class="bottom-nav-btn">
+      <span class="icon">👤</span>
+      <span class="label">Entrar</span>
+    </button>
   </div>
 
   <footer>
@@ -750,25 +779,25 @@
     </div>
     <div class="footer-grid">
       <div class="footer-section">
-        <h4>Regulations</h4>
+        <h4>Regulamentos</h4>
         <ul>
-          <li><a href="#">Responsible gaming</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Jogo responsável</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+          <li><a href="#">Termos de Uso</a></li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Help</h4>
+        <h4>Ajuda</h4>
         <ul>
-          <li><a href="#">Frequently Asked Questions</a></li>
-          <li><a href="#">How to Play</a></li>
-          <li><a href="#">Technical Support</a></li>
+          <li><a href="#">Perguntas Frequentes</a></li>
+          <li><a href="#">Como Jogar</a></li>
+          <li><a href="#">Suporte Técnico</a></li>
         </ul>
       </div>
     </div>
     <div style="margin-top:24px;color:#888;">
-      &copy; 2025 poprede.com. All rights reserved.<br>
-      Scratch cards and other games of chance are regulated and covered by our gaming license. Please play responsibly.
+      &copy; 2025 poprede.com. Todos os direitos reservados.<br>
+      Raspadinhas e outros jogos de sorte são regulados e cobertos por nossa licença de jogos. Jogue com responsabilidade.
     </div>
   </footer>
 </body>
