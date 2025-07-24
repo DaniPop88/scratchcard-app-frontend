@@ -1,13 +1,775 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Scratchcard App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Pop Rede</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #38e54d;
+      --green-light: #00FF57;
+      --dark: #18191a;
+      --card: #23272a;
+      --text: #FFF;
+      --accent: #252525;
+      --nav-height: 72px;
+      --transition: 0.35s cubic-bezier(.4,0,.2,1);
+      --border-radius: 18px;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--dark);
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* Navbar */
+    nav {
+      height: var(--nav-height);
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      box-shadow: 0 4px 16px #0007;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-logo img {
+      height: 36px;
+      margin-right: 10px;
+    }
+    .nav-logo span {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #38e54d, 0 2px 24px #38e54d66;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.15rem;
+      font-weight: 500;
+      transition: color var(--transition);
+      position: relative;
+      padding: 10px 0;
+    }
+    .nav-links a:hover {
+      color: var(--green);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nav-balance {
+      background: var(--accent);
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 1.07rem;
+      font-weight: 600;
+      color: var(--green);
+      margin-right: 8px;
+      box-shadow: 0 2px 8px #38e54d44;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-btn {
+      background: var(--green);
+      border: none;
+      border-radius: 8px;
+      color: #222;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 9px 18px;
+      margin: 0 2px;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #38e54d44;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .nav-btn:hover {
+      background: var(--green-light);
+      transform: scale(1.06);
+    }
+    .nav-avatar {
+      background: var(--green);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #222;
+      box-shadow: 0 2px 12px #38e54d44;
+      margin-left: 8px;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    /* Banner */
+    .banner {
+      width: 100%;
+      background: linear-gradient(90deg, #38e54d 60%, #252525 100%);
+      border-radius: 0 0 36px 36px;
+      box-shadow: 0 12px 32px #38e54d33;
+      padding: 36px 0 48px 0;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInDown 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-60px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    .banner-content {
+      max-width: 1150px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      padding: 0 42px;
+    }
+    .banner-img {
+      min-width: 340px;
+      max-width: 340px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .banner-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+      filter: drop-shadow(0 2px 12px #38e54d66);
+      transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 0 8px #38e54d, 0 2px 24px #38e54d66;
+    }
+    .banner-img img:hover {
+      transform: scale(1.07) rotate(-5deg);
+    }
+    .banner-message {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #FFF;
+      letter-spacing: 3px;
+      text-shadow: 0 2px 18px #38e54d44;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      margin-left: 24px;
+    }
+    .banner-desc {
+      font-size: 1.2rem;
+      color: #fff;
+      opacity: 0.88;
+      font-weight: 500;
+      margin-left: 24px;
+      margin-top: 16px;
+    }
+    /* VIVO Row */
+    .vivo-row {
+      width: 100%;
+      margin: 0 auto 14px auto;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 36px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    .vivo-indicator {
+      color: var(--green-light);
+      font-weight: 700;
+      margin-right: 14px;
+      font-size: 1.11rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vivo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-light);
+      margin-right: 3px;
+      animation: blink 1s infinite alternate;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      100% { opacity: 0.4;}
+    }
+    .vivo-card {
+      background: var(--card);
+      border-radius: 11px;
+      box-shadow: 0 2px 12px #38e54d22;
+      padding: 6px 16px;
+      margin-right: 8px;
+      min-width: 170px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.97rem;
+      font-weight: 500;
+      transition: box-shadow var(--transition), transform var(--transition);
+      overflow: hidden;
+      position: relative;
+    }
+    .vivo-card:hover {
+      box-shadow: 0 8px 18px #38e54d44;
+      transform: scale(1.04);
+    }
+    .vivo-prize-name {
+      color: #fff;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .vivo-prize-item {
+      color: #fff;
+      opacity: 0.8;
+      margin-right: 6px;
+      font-size: 0.92rem;
+    }
+    .vivo-prize-value {
+      color: var(--green);
+      font-weight: 700;
+      margin-left: auto;
+      font-size: 1.07rem;
+    }
+    /* Search Bar */
+    .search-bar-row {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 14px auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 36px;
+    }
+    .search-bar {
+      background: #23272a;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.07rem;
+      padding: 12px 22px;
+      width: 320px;
+      color: #fff;
+      box-shadow: 0 2px 8px #38e54d44;
+      margin-right: 10px;
+      outline: none;
+      transition: border var(--transition);
+    }
+    .search-bar:focus {
+      border: 2px solid var(--green);
+    }
+    /* Highlights Section */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 36px;
+      margin-top: 16px;
+    }
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 44px 0 18px 0;
+      color: var(--green);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title .fire {
+      color: #ff7e3f;
+      font-size: 1.45rem;
+      margin-right: 6px;
+    }
+    .see-more {
+      color: var(--green-light);
+      font-size: 1.07rem;
+      margin-left: auto;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    .cards-row {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .game-card {
+      background: var(--card);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 18px #38e54d22;
+      padding: 0;
+      min-width: 260px;
+      max-width: 300px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      transition: box-shadow var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .game-card:hover {
+      box-shadow: 0 8px 32px #38e54d44;
+      transform: scale(1.04);
+    }
+    .game-img-banner {
+      width: 100%;
+      height: 85px;
+      object-fit: cover;
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
+    }
+    .game-title {
+      font-size: 1.13rem;
+      font-weight: 700;
+      margin: 10px 0 2px 18px;
+      color: var(--green-light);
+    }
+    .game-prize {
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin: 0 0 12px 18px;
+      color: #fff;
+      opacity: 0.8;
+    }
+    .game-action-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      width: 100%;
+      padding: 0 0 18px 18px;
+    }
+    .game-btn {
+      background: var(--green);
+      color: #222;
+      font-weight: 700;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+      padding: 9px 16px;
+      box-shadow: 0 2px 12px #38e54d44;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      margin-right: 10px;
+      outline: none;
+    }
+    .game-btn:hover {
+      background: var(--green-light);
+      transform: scale(1.08);
+    }
+    .game-price {
+      background: #252525;
+      color: var(--green-light);
+      font-weight: 700;
+      font-size: 1.12rem;
+      border-radius: 7px;
+      padding: 8px 18px;
+      margin-left: 2px;
+      box-shadow: 0 2px 8px #38e54d44;
+      margin-right: 6px;
+    }
+    .game-awards {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 0.96rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color var(--transition);
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: underline;
+      padding: 0;
+    }
+    .game-awards:hover {
+      color: var(--green-light);
+    }
+    /* Footer */
+    footer {
+      background: var(--card);
+      padding: 34px 0 20px 0;
+      text-align: center;
+      color: #888;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      margin-top: 54px;
+      border-radius: 32px 32px 0 0;
+    }
+    .footer-grid {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      justify-content: space-between;
+      padding: 24px 0 0 0;
+      color: #aaa;
+      font-size: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-section {
+      flex: 1;
+      min-width: 180px;
+      margin: 0 18px;
+      text-align: left;
+    }
+    .footer-section h4 {
+      color: var(--green);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-section ul li {
+      margin-bottom: 9px;
+    }
+    .footer-section ul li a {
+      color: #aaa;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-section ul li a:hover {
+      color: var(--green);
+      text-decoration: underline;
+    }
+    .footer-logo {
+      margin-top: 22px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .footer-logo img {
+      height: 35px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    /* Bottom Navigation Mobile */
+    .bottom-nav {
+      display: none;
+    }
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+      .banner-content { flex-direction: column; gap: 22px;}
+      .banner-img { min-width: 220px; max-width: 220px; height: 120px;}
+      .banner-message { font-size: 1.8rem;}
+      .main-content { padding: 0 10px;}
+      .cards-row { flex-direction: column;}
+      .game-card { max-width: 100%;}
+      nav { padding: 0 12px;}
+      .vivo-row, .search-bar-row { padding: 0 10px;}
+      .footer-grid { flex-direction: column; padding: 0;}
+      .footer-section { margin-bottom: 18px;}
+    }
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+      }
+      .nav-logo span {
+        font-size: 1.1rem;
+      }
+      .nav-logo img {
+        height: 28px;
+      }
+      .nav-links {
+        gap: 10px;
+        font-size: 0.97rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 8px;
+      }
+      .nav-actions {
+        gap: 4px;
+        justify-content: center;
+        margin-top: 4px;
+      }
+      .nav-balance {
+        padding: 7px 11px;
+        font-size: 0.97rem;
+      }
+      .nav-btn {
+        padding: 7px 10px;
+        font-size: 0.93rem;
+      }
+      .nav-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 1.07rem;
+      }
+      .banner-message { font-size: 1rem; margin-left: 0;}
+      .banner-img { min-width: 80vw; max-width: 80vw; height: 80px;}
+      .banner-content { padding: 0 5vw;}
+      .main-content { padding: 0 2vw;}
+      .cards-row { gap: 12px;}
+      .game-card { min-width: 90vw;}
+      .game-img-banner { height: 55px;}
+      .footer-grid { flex-direction: column;}
+      .footer-section { margin-bottom: 18px;}
+      .bottom-nav {
+        display: flex;
+        position: fixed;
+        left: 0; right: 0; bottom: 0;
+        height: 58px;
+        background: var(--card);
+        justify-content: space-around;
+        align-items: center;
+        z-index: 999;
+        border-top: 2px solid var(--green);
+      }
+      .bottom-nav-btn {
+        flex: 1;
+        text-align: center;
+        color: #fff;
+        font-size: 1.11rem;
+        padding: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        position: relative;
+      }
+      .bottom-nav-btn.active {
+        color: var(--green);
+      }
+      .bottom-nav-btn .icon {
+        display: block;
+        font-size: 1.43rem;
+        margin: 0 auto 2px auto;
+      }
+      body { padding-bottom: 62px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-logo">
+      <img src="https://i.imgur.com/ZM3QyJk.png" alt="Logo" />
+      <span>POP REDE</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">Start</a>
+      <a href="#">Scratch cards</a>
+      <a href="#">Refer and Earn</a>
+    </div>
+    <div class="nav-actions">
+      <div class="nav-balance">
+        R$ 100.00
+      </div>
+      <button class="nav-btn">Deposit</button>
+      <button class="nav-btn">Withdraw</button>
+      <div class="nav-avatar">PR</div>
+    </div>
+  </nav>
+
+  <!-- Banner -->
+  <section class="banner">
+    <div class="banner-content">
+      <div class="banner-img">
+        <img src="https://i.imgur.com/CxLqZcC.png" alt="Banner Pop Rede" />
+      </div>
+      <div>
+        <div class="banner-message">
+          ACHE 3 IGUAIS E <span style="color:#38e54d;">GANHE NA HORA!</span>
+        </div>
+        <div class="banner-desc">
+          Discover how thousands are earning with just a few clicks.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIVO row -->
+  <div class="vivo-row">
+    <div class="vivo-indicator"><span class="vivo-dot"></span> AO VIVO</div>
+    <div class="vivo-card">
+      <span class="vivo-prize-name">Cynthia Ma******</span>
+      <span class="vivo-prize-item">65-inch 4K Smart TV</span>
+      <span class="vivo-prize-value">R$ 3,000.00</span>
+    </div>
+    <div class="vivo-card">
+      <span class="vivo-prize-name">Ania Co*****</span>
+      <span class="vivo-prize-item">Datejust 41</span>
+      <span class="vivo-prize-value">R$ 75,400.00</span>
+    </div>
+    <div class="vivo-card">
+      <span class="vivo-prize-name">Kleber Ri**</span>
+      <span class="vivo-prize-item">DualSense Midnight</span>
+      <span class="vivo-prize-value">R$ 470.00</span>
+    </div>
+    <div class="vivo-card">
+      <span class="vivo-prize-name">Raphael Bu****</span>
+      <span class="vivo-prize-item">Submariner</span>
+      <span class="vivo-prize-value">R$ 84,800.00</span>
+    </div>
+    <div class="vivo-card">
+      <span class="vivo-prize-name">Marcelo Di**</span>
+      <span class="vivo-prize-item">Dishwasher</span>
+      <span class="vivo-prize-value">R$ 4,000.00</span>
+    </div>
+    <div class="vivo-card">
+      <span class="vivo-prize-name">Allan Sa*****</span>
+      <span class="vivo-prize-item">20 Reais</span>
+      <span class="vivo-prize-value">R$ 20.00</span>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar-row">
+    <input class="search-bar" type="text" placeholder="Search..." />
+  </div>
+
+  <!-- Highlights Section -->
+  <div class="main-content">
+    <div class="section-title">
+      <span class="fire">🔥</span>Highlights
+      <span class="see-more">See more</span>
+    </div>
+    <div class="cards-row">
+      <div class="game-card">
+        <img class="game-img-banner" src="https://i.imgur.com/3qQ6eQ2.png" alt="Lucky Penny" />
+        <div class="game-title">Lucky Penny</div>
+        <div class="game-prize">PRIZES OF UP TO R$1,000.00</div>
+        <div class="game-action-row">
+          <button class="game-btn">To play</button>
+          <span class="game-price">R$ 0.50</span>
+          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+        </div>
+      </div>
+      <div class="game-card">
+        <img class="game-img-banner" src="https://i.imgur.com/0g2RRea.png" alt="Instant Luck" />
+        <div class="game-title">Instant Luck</div>
+        <div class="game-prize">PRIZES OF UP TO R$2,500.00</div>
+        <div class="game-action-row">
+          <button class="game-btn">To play</button>
+          <span class="game-price">R$ 1.00</span>
+          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+        </div>
+      </div>
+      <div class="game-card">
+        <img class="game-img-banner" src="https://i.imgur.com/8hKX7vB.png" alt="Supreme Scratch Card" />
+        <div class="game-title">Supreme Scratch Card</div>
+        <div class="game-prize">PRIZES OF UP TO R$5,000.00</div>
+        <div class="game-action-row">
+          <button class="game-btn">To play</button>
+          <span class="game-price">R$ 2.50</span>
+          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+        </div>
+      </div>
+      <div class="game-card">
+        <img class="game-img-banner" src="https://i.imgur.com/oYQw9AE.png" alt="Lightning Shave" />
+        <div class="game-title">Lightning Shave</div>
+        <div class="game-prize">PRIZES OF UP TO R$15,000.00</div>
+        <div class="game-action-row">
+          <button class="game-btn">To play</button>
+          <span class="game-price">R$ 5.00</span>
+          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+        </div>
+      </div>
+      <div class="game-card">
+        <img class="game-img-banner" src="https://i.imgur.com/hoJ9wGx.png" alt="Magic Scratch Card" />
+        <div class="game-title">Magic Scratch Card</div>
+        <div class="game-prize">PRIZES OF UP TO R$30,000.00</div>
+        <div class="game-action-row">
+          <button class="game-btn">To play</button>
+          <span class="game-price">R$ 50.00</span>
+          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+        </div>
+      </div>
+      <div class="game-card">
+        <img class="game-img-banner" src="https://i.imgur.com/1FQdAPn.png" alt="Scratch and Win" />
+        <div class="game-title">Scratch and Win</div>
+        <div class="game-prize">PRIZES OF UP TO R$60,000.00</div>
+        <div class="game-action-row">
+          <button class="game-btn">To play</button>
+          <span class="game-price">R$ 100.00</span>
+          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+        </div>
+      </div>
+      <div class="game-card">
+        <img class="game-img-banner" src="https://i.imgur.com/qw7KURY.png" alt="Omega Scratch Card" />
+        <div class="game-title">Omega Scratch Card</div>
+        <div class="game-prize">PRIZES OF UP TO R$175,000.00</div>
+        <div class="game-action-row">
+          <button class="game-btn">To play</button>
+          <span class="game-price">R$ 500.00</span>
+          <button class="game-awards"><span>🎁</span>SEE AWARDS</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Mobile -->
+  <div class="bottom-nav">
+    <button class="bottom-nav-btn active"><span class="icon">🏠</span>Home</button>
+    <button class="bottom-nav-btn"><span class="icon">🎫</span>Scratch</button>
+    <button class="bottom-nav-btn"><span class="icon">🟢</span>Register</button>
+    <button class="bottom-nav-btn"><span class="icon">🎁</span>Awards</button>
+    <button class="bottom-nav-btn"><span class="icon">👤</span>Login</button>
+  </div>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="https://i.imgur.com/ZM3QyJk.png" alt="Logo Pop Rede" />
+      <span style="font-size:1.3rem; font-weight:700; color:#38e54d;">POP REDE</span>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-section">
+        <h4>Regulations</h4>
+        <ul>
+          <li><a href="#">Responsible gaming</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Frequently Asked Questions</a></li>
+          <li><a href="#">How to Play</a></li>
+          <li><a href="#">Technical Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:24px;color:#888;">
+      &copy; 2025 poprede.com. All rights reserved.<br>
+      Scratch cards and other games of chance are regulated and covered by our gaming license. Please play responsibly.
+    </div>
+  </footer>
+</body>
 </html>
